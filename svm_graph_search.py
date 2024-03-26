@@ -25,7 +25,7 @@ def svm_train_with_timeout(X_train, y_train, X_test, y_test, params, timeout):
             print(f"Training exceeded time limit of {timeout} seconds for parameters: {params}")
             return None, None, None
 
-def run_svm_with_randomized_search_and_timeout(file_path, target='Class', search_time_limit=600, n_iter=10):
+def run_svm_with_randomized_search_and_timeout(file_path, target='Class', search_time_limit=600, time_limit_for_iteration=300, n_iter=10):
     data = pd.read_csv(file_path)
     X = data.drop(target, axis=1)
     y = data[target]
@@ -42,12 +42,16 @@ def run_svm_with_randomized_search_and_timeout(file_path, target='Class', search
 
     start_time = time.time()
     for params in param_sampler:
+        iteration_start_time = time.time()
         if time.time() - start_time > search_time_limit:
             print("Search time limit exceeded.")
-            break
+            return
+        if(time.time()-iteration_start_time > time_limit_for_iteration):
+            print("Time limit for specific set of parameters reached")
 
         print(f"Testing parameters: {params}")
-        report, accuracy, auc = svm_train_with_timeout(X_train, y_train, X_test, y_test, params, timeout=search_time_limit - (time.time() - start_time))
+        timeout_arg = min(search_time_limit - (time.time() - start_time), time_limit_for_iteration)
+        report, accuracy, auc = svm_train_with_timeout(X_train, y_train, X_test, y_test, params, timeout=timeout_arg)
         if report is not None:
             print(report)
             print(f"Accuracy: {accuracy}")

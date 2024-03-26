@@ -58,4 +58,4 @@ def main():
 
 if __name__ == "__main__":
     # main()
-    run_svm_with_randomized_search_and_timeout('creditcard_normalized.csv', search_time_limit=300, n_iter=10)
+    run_svm_with_randomized_search_and_timeout('creditcard_normalized.csv', search_time_limit=20000, time_limit_for_iteration=1000, n_iter=10)
