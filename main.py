@@ -1,7 +1,7 @@
 from random_forest import run_random_forest_classifier, get_selected_features_from_random_forest
 # from svm import run_svm_with_all_features, run_svm_with_selected_features
 from svm_graph_search import run_svm_with_randomized_search_and_timeout
-from neural_network import run_neural_network_with_all_features, run_neural_network_with_selected_features
+from neural_network import run_ann_with_all_features
 from selected_features import SELECTED_FEATURES
 # Other necessary imports
 
@@ -58,4 +58,5 @@ def main():
 
 if __name__ == "__main__":
     # main()
-    run_svm_with_randomized_search_and_timeout('creditcard_normalized.csv', search_time_limit=20000, time_limit_for_iteration=1000, n_iter=10)
+    # run_svm_with_randomized_search_and_timeout('creditcard_normalized.csv', search_time_limit=20000, time_limit_for_iteration=1000, n_iter=10)
+    run_ann_with_all_features('creditcard.csv', 'Class')

@@ -1,3 +1,4 @@
 creditcard_normalized.csv
 creditcard.csv
 __pycache__/
+.DS_Store
