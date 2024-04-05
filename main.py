@@ -1,7 +1,10 @@
 from random_forest import run_random_forest_classifier, get_selected_features_from_random_forest
-# from svm import run_svm_with_all_features, run_svm_with_selected_features
+from svm import run_svm_with_all_features, run_svm_with_selected_features
 from svm_graph_search import run_svm_with_randomized_search_and_timeout
-from neural_network import run_ann
+# from neural_network import run_ann
+from neural_network2 import run_ann
+# from neural_network3 import run_ann_with_adaboost_concept
+# from neural_network4 import run_ann_with_adaboost
 from selected_features import SELECTED_FEATURES
 # Other necessary imports
 
@@ -57,6 +60,62 @@ def main():
     
 
 if __name__ == "__main__":
+    
+    # NOTE: Add validation as part of training set
+    # NOTE: Might want to try scaler types:
+        # RobustScaler for any option
+        # PowerTransformer for neural network
+    # NOTE: Could consider implementing XGBoost or something into RF &/or SVM if time
+    
+    # OPTION 1: RF
+        # Normal
+        # Normal with smote vs. smote_enn
+        # Normal with Selected features
+    
+        # Scaled
+        # Scaled with smote vs. smote_enn
+        # Scaled with Selected features 
+    
+    # OPTION 2: SVM
+        # Normal
+        # Normal with smote vs. smote_enn
+        # Normal with Selected features
+    
+        # Scaled
+        # Scaled with smote vs. smote_enn
+        # Scaled with Selected features
+    
+    # OPTION 3: Neural Network
+        # Normal
+        # Normal with smote vs. smote_enn
+        # Normal with Selected features
+    
+        # Scaled
+        # Scaled with smote vs. smote_enn
+        # Scaled with Selected features
+    
+        # Number of layers
+        # Units per layer
+        # Internal Activation = 'relu' vs. LeakyRelu vs. 'elu' vs. 'selu'
+            # Might wanna go from 'relu' to Leaky or elu or selu
+        # kernal_initializer = Uniform vs. Normal vs. HeNormal()
+        # Optimizer = 'adam' vs. 'Nadam' vs. 'RMSprop'
+        # Epochs <---- This can have an effect on overfitting if too large
+    
+    
+    
+    
     # main()
-    # run_svm_with_randomized_search_and_timeout('creditcard_normalized.csv', search_time_limit=20000, time_limit_for_iteration=1000, n_iter=10)
-    run_ann('creditcard_normalized.csv', 'Class')
+    # run_svm_with_randomized_search_and_timeout('creditcard_normalized.csv', search_time_limit=5500, time_limit_for_iteration=1000, n_iter=10)
+    # run_ann('creditcard.csv', 'Class')
+    # run_svm_with_selected_features('creditcard_normalized.csv', SELECTED_FEATURES,'Class')
+    # run_ann('creditcard_normalized.csv', 'Class', SELECTED_FEATURES)
+
+    # Adjust file path, target, and selected_features as needed
+    # run_ann_with_adaboost_concept('creditcard_normalized.csv', 'Class', selected_features=None, n_models=5)
+
+    #run_ann_with_adaboost('creditcard.csv')
+
+    run_ann('creditcard.csv')
+
+
