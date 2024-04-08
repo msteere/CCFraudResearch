@@ -3,26 +3,12 @@ import panda as pd
 from sklearn.preprocessing import StandardScaler, RobustScaler, PowerTransformer
 from sklearn.model_selection import train_test_split
 
+from imblearn.over_sampling import SMOTE
+from imblearn.combine import SMOTEENN
+
 from selected_features import SELECTED_FEATURES
 
-def get_data(file_path, standardization_rule, smote, enable_selected_features, target='Class'):
-    
-
-    # ENABLE SELECTED FEATURES
-    
-
-    X = data.drop(target, axis=1)
-    y = data[target].values
-
-    
-    
-    # SMOTE
-    if smote == 'smote':
-        #
-    elif smote == 'smote_enn'
-        #
-
-def scale(scale_rule, X):
+def apply_scale(scale_rule, X):
     if scale_rule == 'StandardScaler':
         scaler = StandardScaler()
         X = scaler.fit_transform(X)
@@ -56,7 +42,7 @@ def preprocess_data(file_path, scale_rule, smote_rule, enable_selected_features,
     X = data.drop(target, axis=1)
     y = data[target].values
 
-    X = data.scale(scale_rule, X)
+    X = apply_scale(scale_rule, X)
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
