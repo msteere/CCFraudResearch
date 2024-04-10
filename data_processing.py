@@ -42,7 +42,7 @@ def preprocess_data(file_path, scale_rule, smote_rule, enable_selected_features,
     num_features, threshold = None, None
 
     if enable_selected_features: 
-        data = random_forest_preprocessing_main(file_path, )                                                              
+        data = random_forest_preprocessing_main(file_path)                                                              
         #features = SELECTED_FEATURES + [target] if target not in SELECTED_FEATURES else SELECTED_FEATURES
         #data = data[features]
 

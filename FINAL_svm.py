@@ -33,7 +33,7 @@ def run_svm_with_randomized_search_and_timeout(X_train, X_test, y_train, y_test,
 
     for params in param_sampler:
         print(f"running SVM with parameters: {params}")
-        timeout_arg = search_time_limit-iter_start_time
+        timeout_arg = search_time_limit- (time.time() - iter_start_time)
         report, accuracy, auc = svm_train_with_timeout(X_train, y_train, X_test, y_test, params, timeout=timeout_arg)
         if report is not None:
             print(report)

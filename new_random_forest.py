@@ -8,6 +8,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, roc_auc_score
 import joblib
 import random
+import concurrent.futures
 
 
 def random_forest_preprocessing_main(csv_file_path, num_features_to_select=27, threshold=0.95):
@@ -32,15 +33,25 @@ def random_forest_preprocessing_main(csv_file_path, num_features_to_select=27, t
     return trimmed_data
 
 
-def random_forest_classification(csv_file_path, X_train, X_test, y_train, y_test):
-    randforest_model = RandForest(csv_file_path)
-    print("Running random forest for classification...\n")
-    # Preprocess data
-    randforest_model.preprocess_data()
+def rf_with_timeout(csv_file_path, X_train, X_test, y_train, y_test, timeout):
+
+    def random_forest_classification():
+        randforest_model = RandForest(csv_file_path)
+        print("Running random forest for classification...\n")
+        # Preprocess data
+        randforest_model.preprocess_data()
     
-    # Train the model and print out classification report
-    auc_score = randforest_model.train_preprocessed()
-    print(f"Initial AUC Score: {auc_score}")
+        # Train the model and print out classification report
+        auc_score = randforest_model.train_preprocessed(X_train, X_test, y_train, y_test)
+        print(f"Initial AUC Score: {auc_score}")
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        future = executor.submit(random_forest_classification)
+        try:
+            return future.result(timeout=timeout)
+        except concurrent.futures.TimeoutError:
+            print(f"Training exceeded time limit of {timeout} seconds")
+            return None, None, None
 
 class RandForest:
     def __init__(self, file_path):

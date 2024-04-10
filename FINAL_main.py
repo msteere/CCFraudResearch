@@ -2,8 +2,8 @@ import sys
 from data_processing import preprocess_data
 #from FINAL_randomforest import run_rf
 from FINAL_svm import run_svm_with_randomized_search_and_timeout
-from FINAL_neuralnetwork import run_ann
-from new_random_forest import random_forest_classification
+from FINAL_neuralnetwork import run_ann_with_timeout
+from new_random_forest import rf_with_timeout
 import random
 import time
 
@@ -41,8 +41,9 @@ def parse_command_line_arguments():
     return file_path, float(total_time), float(single_iter_time)#, base_algorithm, scale_rule, smote_rule, enable_selected_features
 
 def train_and_run(file_path, base_algorithm, X_train, X_test, y_train, y_test, iter_start_time, single_iter_time):
+    timeout = single_iter_time - (time.time()-iter_start_time)
     if (base_algorithm=='random_forest'):
-        random_forest_classification(file_path, X_train=X_train, X_test=X_test, y_train=y_train, y_test=y_test)
+        rf_with_timeout(file_path, X_train, X_test, y_train, y_test, timeout)
         # call with X_train, X_test, y_train, y_test
         #run_rf(X_train, X_test, y_train, y_test)
     elif (base_algorithm=='svm'):
@@ -50,7 +51,7 @@ def train_and_run(file_path, base_algorithm, X_train, X_test, y_train, y_test, i
         run_svm_with_randomized_search_and_timeout(X_train, X_test, y_train, y_test, single_iter_time, iter_start_time)
     elif (base_algorithm=='neural_network'):
         #kern_init = 'uniform' 
-        run_ann(X_train, X_test, y_train, y_test)
+        run_ann_with_timeout(X_train, X_test, y_train, y_test, timeout)
         # call with X_train, X_test, y_train, y_test, kern_init
 
 
