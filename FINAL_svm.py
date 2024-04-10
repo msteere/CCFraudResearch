@@ -22,26 +22,18 @@ def svm_train_with_timeout(X_train, y_train, X_test, y_test, params, timeout):
             print(f"Training exceeded time limit of {timeout} seconds for parameters: {params}")
             return None, None, None
 
-def run_svm_with_randomized_search_and_timeout(X_train, X_test, y_train, y_test, search_time_limit=600, time_limit_for_iteration=300, n_iter=10):
+def run_svm_with_randomized_search_and_timeout(X_train, X_test, y_train, y_test, search_time_limit=600, iter_start_time=0):
     param_distributions = {
     'C': np.logspace(-3, 2, 6),  # Generates values [0.001, 0.01, 0.1, 1, 10, 100]
     'gamma': np.logspace(-3, -1, 3),  # Generates values [0.001, 0.01, 0.1]
     'kernel': ['rbf', 'linear', 'poly', 'sigmoid']  # Kernel types
 }
 
-    param_sampler = ParameterSampler(param_distributions, n_iter=n_iter, random_state=42)
+    param_sampler = ParameterSampler(param_distributions, n_iter=1, random_state=42)
 
-    start_time = time.time()
     for params in param_sampler:
-        iteration_start_time = time.time()
-        if time.time() - start_time > search_time_limit:
-            print("Search time limit exceeded.")
-            return
-        if(time.time()-iteration_start_time > time_limit_for_iteration):
-            print("Time limit for specific set of parameters reached")
-
-        print(f"Testing parameters: {params}")
-        timeout_arg = min(search_time_limit - (time.time() - start_time), time_limit_for_iteration)
+        print(f"running SVM with parameters: {params}")
+        timeout_arg = search_time_limit-iter_start_time
         report, accuracy, auc = svm_train_with_timeout(X_train, y_train, X_test, y_test, params, timeout=timeout_arg)
         if report is not None:
             print(report)

@@ -3,9 +3,9 @@ from data_processing import preprocess_data
 
 def parse_command_line_arguments():
     file_path = sys.argv[1] 
-    base_algorithm = sys.argv[2]
-    scale_rule = sys.argv[3] # this could be none
-    smote_rule = sys.argv[4] # this could be none
+    base_algorithm = sys.argv[2] # Random forest, svm, or neural network
+    scale_rule = sys.argv[3] # this could be none   THERE ARE 4 OF THESE: 'StandardScaler', 'RobustScaler', 'PowerTransformer', None
+    smote_rule = sys.argv[4] # this could be none   3 OF THESE: 'smote', 'smote_enn', None
     enable_selected_features = sys.argv[5] # this should be True/False
 
     return file_path, base_algorithm, scale_rule, smote_rule, enable_selected_features
