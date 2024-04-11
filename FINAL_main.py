@@ -58,7 +58,8 @@ def train_and_run(file_path, base_algorithm, X_train, X_test, y_train, y_test, i
 def total_grid_search(file_path, total_time, single_iter_time):
     start_time = time.time()
     parameters_grid = {
-        'base_algo': ['random_forest', 'svm', 'neural_network'],
+        # 'base_algo': ['random_forest', 'svm', 'neural_network'],
+        'base_algo': ['svm', 'neural_network'],
         'scale_rule': ['StandardScaler', 'RobustScaler', 'PowerTransformer', None],
         'smote_rule' : ['smote', 'smote_enn', None],
         'enable_selected_features': [1, 0]
@@ -83,6 +84,7 @@ def total_grid_search(file_path, total_time, single_iter_time):
 
         print('Preprocessing data for base_algorithm= ', base_algorithm, ' with', rf, 'scale_rule=', scale_rule, ' smote_rule=', smote_rule, '\n')
 
+        # NOTE: Here we are trying to adjust the process for selected_features so that it's preset and hardcoded.
         X_train, X_test, y_train, y_test = preprocess_data(file_path, scale_rule, smote_rule, enable_selected_features, target='Class')
 
         train_and_run(file_path, base_algorithm, X_train, X_test, y_train, y_test, iteration_start_time, single_iter_time)

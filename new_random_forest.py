@@ -6,12 +6,13 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, roc_auc_score
+from selected_features import SELECTED_FEATURES
 import joblib
 import random
 import concurrent.futures
 
 
-def random_forest_preprocessing_main(csv_file_path, num_features_to_select=30, threshold=0.95):
+def random_forest_preprocessing_main(self, csv_file_path, num_features_to_select=30, threshold=0.95):
     randforest_model = RandForest(csv_file_path)
     threshold = random.choice([0.5, 0.7, 0.8, 0.85, 0.9, 0.91, 0.92, 0.93, 0.95, 0.955, 0.96, 0.965, 0.97, 0.975, 0.98, 0.985, 0.99, 0.995])
     # Preprocess data
@@ -22,10 +23,11 @@ def random_forest_preprocessing_main(csv_file_path, num_features_to_select=30, t
     print(f"Initial AUC Score: {auc_score}")
 
     # Evaluate the importance of features based on cross-validated performance
-    trimmed_data, feature_names, num_features = randforest_model.evaluate_feature_importance(n_features_to_select=num_features_to_select, threshold=threshold)  
+    # trimmed_data, feature_names, num_features = randforest_model.evaluate_feature_importance(n_features_to_select=num_features_to_select, threshold=threshold)  
     
-    print(f"{num_features} important features were found: {feature_names}")
+    # print(f"{num_features} important features were found: {feature_names}")
 
+    trimmed_data = self.data[SELECTED_FEATURES]
 
     # Save the model
    #fraud_detector.save_model('rf_model.pkl')

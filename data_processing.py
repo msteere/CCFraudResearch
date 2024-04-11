@@ -39,14 +39,17 @@ def preprocess_data(file_path, scale_rule, smote_rule, enable_selected_features,
 
     #change this to actually call randomforest
 
-    num_features, threshold = None, None
+    # num_features, threshold = None, None
 
-    if enable_selected_features: 
-        data = random_forest_preprocessing_main(file_path)                                                              
+    #if enable_selected_features: 
+        #data = random_forest_preprocessing_main(file_path)                                                              
         #features = SELECTED_FEATURES + [target] if target not in SELECTED_FEATURES else SELECTED_FEATURES
         #data = data[features]
 
-    X = data.drop(target, axis=1)
+    if enable_selected_features:
+        X = data[SELECTED_FEATURES].values
+    else: 
+        X = data.drop(target, axis=1)
     y = data[target].values
 
     X = apply_scale(scale_rule, X)
