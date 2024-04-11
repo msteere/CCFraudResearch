@@ -11,7 +11,7 @@ import random
 import concurrent.futures
 
 
-def random_forest_preprocessing_main(csv_file_path, num_features_to_select=27, threshold=0.95):
+def random_forest_preprocessing_main(csv_file_path, num_features_to_select=30, threshold=0.95):
     randforest_model = RandForest(csv_file_path)
     threshold = random.choice([0.5, 0.7, 0.8, 0.85, 0.9, 0.91, 0.92, 0.93, 0.95, 0.955, 0.96, 0.965, 0.97, 0.975, 0.98, 0.985, 0.99, 0.995])
     # Preprocess data
@@ -96,8 +96,18 @@ class RandForest:
                 optimal_num_features = i
                 break
         final_selected_features = feature_indices[:optimal_num_features]
+        class_index = self.data.columns.get_loc('Class')
+        final_selected_features_with_class = np.append(final_selected_features, class_index)
+
+
         important_feature_names = self.data.columns[final_selected_features]
-        trimmed_data = self.data.iloc[:, final_selected_features]
+        # if 'Class' not in final_selected_features:
+        # final_selected_features.append('Class')
+        # trimmed_data_final_features = feature_indices[:optimal_num_features + 'Class']
+        # trimmed_data = self.data.iloc[:, trimmed_data_final_features]
+
+        trimmed_data = self.data.iloc[:, final_selected_features_with_class]
+
         return trimmed_data, important_feature_names, optimal_num_features
             
 

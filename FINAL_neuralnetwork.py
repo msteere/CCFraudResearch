@@ -24,8 +24,10 @@ def run_ann_with_timeout(X_train, X_test, y_train, y_test, time_limit):
         'kernel': ['HeNormal', 'uniform', 'normal'],
         'optimizer': ['adam', 'SGD', 'adagrad', 'adamax', 'nadam'],
         'batch_size' : [8, 16, 32, 64, 128, 256, 512, 1024, 2048],
-        'epochs': [5, 10, 15, 20, 30, 40, 50, 75, 100, 200, 500, 1000],
-        'loss' : ['binary_crossentropy', 'categorical_crossentropy', 'mean_absolute_error']
+        # 'epochs': [5, 10, 15, 20, 30, 40, 50, 75, 100, 200, 500, 1000],
+        'epochs' : [5, 10, 15, 20, 30],
+        # 'loss' : ['binary_crossentropy', 'categorical_crossentropy', 'mean_absolute_error']
+        'loss' : ['binary_crossentropy']
         # Add more parameters as needed
         }
         selected_parameters = random_parameters(parameters_grid)
