@@ -25,7 +25,7 @@ def svm_train_with_timeout(X_train, y_train, X_test, y_test, params, timeout):
 def run_svm_with_randomized_search_and_timeout(X_train, X_test, y_train, y_test, search_time_limit=600, iter_start_time=0):
     param_distributions = {
     'C': np.logspace(-3, 2, 6),  # Generates values [0.001, 0.01, 0.1, 1, 10, 100]
-    'gamma': np.logspace(-3, -1, 3),  # Generates values [0.001, 0.01, 0.1]
+    'gamma': [0.01, 0.1], # np.logspace(-3, -1, 3),  # Generates values [0.001, 0.01, 0.1]
     'kernel': ['rbf', 'linear', 'poly', 'sigmoid']  # Kernel types
 }
 

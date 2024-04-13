@@ -78,9 +78,9 @@ def total_grid_search(file_path, total_time, single_iter_time):
 
         rf = ''
         if(enable_selected_features):
-            rf = ' random forest feature selection, '
+            rf = ' random forest feature selection,'
         else:
-            rf = 'out random forest feature selection, '
+            rf = 'out random forest feature selection,'
 
         print('Preprocessing data for base_algorithm= ', base_algorithm, ' with', rf, 'scale_rule=', scale_rule, ' smote_rule=', smote_rule, '\n')
 
