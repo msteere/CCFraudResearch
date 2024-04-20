@@ -15,10 +15,10 @@ def apply_scale(scale_rule, X):
         X = scaler.fit_transform(X)
     elif scale_rule == 'RobustScaler':
         scaler = RobustScaler()
-        X_scaled = scaler.fit_transform(X)
+        X = scaler.fit_transform(X)
     elif scale_rule == 'PowerTransformer':
         scaler = PowerTransformer()
-        X_scaled = scaler.fit_transform(X)
+        X = scaler.fit_transform(X)
 
     return X
 

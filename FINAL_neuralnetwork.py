@@ -1,9 +1,9 @@
-import numpy as np
+# import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Input
-from sklearn.preprocessing import StandardScaler
+# from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import classification_report, confusion_matrix, recall_score, roc_auc_score
-from sklearn.utils.class_weight import compute_class_weight
+# from sklearn.utils.class_weight import compute_class_weight
 from tensorflow.keras.initializers import HeNormal
 import random
 import concurrent.futures
@@ -23,7 +23,8 @@ def run_ann_with_timeout(X_train, X_test, y_train, y_test, time_limit):
         parameters_grid = {
         'kernel': ['HeNormal', 'uniform', 'normal'],
         'optimizer': ['adam', 'SGD', 'adagrad', 'adamax', 'nadam'],
-        'batch_size' : [8, 16, 32, 64, 128, 256, 512, 1024, 2048],
+        # 'batch_size' : [8, 16, 32, 64, 128, 256, 512, 1024, 2048],
+        'batch_size' : [32, 64, 128, 256, 512, 1024, 2048],
         # 'epochs': [5, 10, 15, 20, 30, 40, 50, 75, 100, 200, 500, 1000],
         'epochs' : [5, 10, 15, 20],
         # 'loss' : ['binary_crossentropy', 'categorical_crossentropy', 'mean_absolute_error']

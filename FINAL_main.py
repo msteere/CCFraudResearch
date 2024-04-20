@@ -59,9 +59,11 @@ def total_grid_search(file_path, total_time, single_iter_time):
     start_time = time.time()
     parameters_grid = {
         # 'base_algo': ['random_forest', 'svm', 'neural_network'],
-        'base_algo': ['svm', 'neural_network'],
-        'scale_rule': ['StandardScaler', 'RobustScaler', 'PowerTransformer', None],
-        'smote_rule' : ['smote', 'smote_enn', None],
+        'base_algo': ['neural_network'],
+        # 'scale_rule': ['StandardScaler', 'RobustScaler', 'PowerTransformer', None],
+        'scale_rule': ['StandardScaler', 'RobustScaler', 'PowerTransformer'],
+        # 'smote_rule' : ['smote', 'smote_enn', None],
+        'smote_rule' : ['smote', 'smote_enn'],
         'enable_selected_features': [1, 0]
         # Add more parameters as needed
     }   
