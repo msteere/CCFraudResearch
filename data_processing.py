@@ -1,12 +1,10 @@
+# data_processing.py
 import pandas as pd
-
 from sklearn.preprocessing import StandardScaler, RobustScaler, PowerTransformer
 from sklearn.model_selection import train_test_split
 from new_random_forest import random_forest_preprocessing_main
-
 from imblearn.over_sampling import SMOTE
 from imblearn.combine import SMOTEENN
-
 from selected_features import SELECTED_FEATURES
 
 def apply_scale(scale_rule, X):
@@ -35,11 +33,6 @@ def apply_smote(smote_rule, X_train, y_train):
 
 def preprocess_data(file_path, scale_rule, smote_rule, enable_selected_features, target='Class'):
     data = pd.read_csv(file_path)
-    
-
-    #change this to actually call randomforest
-
-    # num_features, threshold = None, None
 
     #if enable_selected_features: 
         #data = random_forest_preprocessing_main(file_path)                                                              
@@ -55,8 +48,6 @@ def preprocess_data(file_path, scale_rule, smote_rule, enable_selected_features,
     X = apply_scale(scale_rule, X)
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-
-    # NOTE: Add validation somehow right here
 
     X_train, y_train = apply_smote(smote_rule, X_train, y_train)
     

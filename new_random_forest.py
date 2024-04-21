@@ -1,11 +1,12 @@
 # https://www.researchgate.net/publication/374083997_FRAUD_DETECTION_USING_MACHINE_LEARNING
+# randomforest.py
 
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report, roc_auc_score
+from sklearn.metrics import classification_report, roc_auc_score, accuracy_score
 from selected_features import SELECTED_FEATURES
 import joblib
 import random
@@ -38,14 +39,29 @@ def random_forest_preprocessing_main(self, csv_file_path, num_features_to_select
 def rf_with_timeout(csv_file_path, X_train, X_test, y_train, y_test, timeout):
 
     def random_forest_classification():
-        randforest_model = RandForest(csv_file_path)
+        # randforest_model = RandForest(csv_file_path)
         print("Running random forest for classification...\n")
         # Preprocess data
-        randforest_model.preprocess_data()
+        # randforest_model.preprocess_data()
+
+        randforest_model =  RandomForestClassifier(random_state=42)
+
+        # randforest_model.X = X_train
+        # randforest_model.y = y_train
+
+        randforest_model.fit(X_train, y_train)
+        y_pred = randforest_model.predict(X_test)
+        # print(classification_report(y_test, y_pred))
+        report = classification_report(y_test, y_pred)
+        accuracy = accuracy_score(y_test, y_pred)
+        auc_score = roc_auc_score(y_test, y_pred)
     
         # Train the model and print out classification report
-        auc_score = randforest_model.train_preprocessed(X_train, X_test, y_train, y_test)
-        print(f"Initial AUC Score: {auc_score}")
+        # auc_score = randforest_model.train_preprocessed(X_train, X_test, y_train, y_test)
+        if report is not None:
+            print(report)
+            print(f"Accuracy: {accuracy}")
+            print(f"AUC: {auc_score}")
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
         future = executor.submit(random_forest_classification)

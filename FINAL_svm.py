@@ -1,3 +1,4 @@
+# svm.py
 from sklearn.svm import SVC
 from sklearn.metrics import classification_report, accuracy_score, roc_auc_score
 from sklearn.model_selection import ParameterSampler
@@ -29,7 +30,7 @@ def run_svm_with_randomized_search_and_timeout(X_train, X_test, y_train, y_test,
     'kernel': ['rbf', 'linear', 'poly', 'sigmoid']  # Kernel types
 }
 
-    param_sampler = ParameterSampler(param_distributions, n_iter=1, random_state=42)
+    param_sampler = ParameterSampler(param_distributions, n_iter=1, random_state=int(time.time()))
 
     for params in param_sampler:
         print(f"running SVM with parameters: {params}")

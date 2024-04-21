@@ -26,8 +26,8 @@ def random_parameters(parameters_grid):
     selected_parameters = {}
     for param, values in parameters_grid.items():
         selected_parameters[param] = random.choice(values)
-    if(selected_parameters['base_algo']=='random_forest' and selected_parameters['enable_selected_features']):
-        selected_parameters['enable_selected_features'] = 0
+    #if(selected_parameters['base_algo']=='random_forest' and selected_parameters['enable_selected_features']):
+    #    selected_parameters['enable_selected_features'] = 0
     return selected_parameters
 
 def parse_command_line_arguments():
@@ -62,6 +62,7 @@ def total_grid_search(file_path, total_time, single_iter_time):
         # 'base_algo': ['random_forest', 'svm', 'neural_network'],
         # 'base_algo': ['neural_network'],
         'base_algo': ['random_forest'],
+        # 'base_algo': ['svm'],
         # 'scale_rule': ['StandardScaler', 'RobustScaler', 'PowerTransformer', None],
         'scale_rule': ['StandardScaler', 'RobustScaler', 'PowerTransformer', None],
         'smote_rule' : ['smote', 'smote_enn', None],

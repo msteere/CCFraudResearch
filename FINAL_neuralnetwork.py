@@ -1,15 +1,10 @@
-# import numpy as np
+# neuralnetwork.py
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Input
-# from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import classification_report, confusion_matrix, recall_score, roc_auc_score
-# from sklearn.utils.class_weight import compute_class_weight
 from tensorflow.keras.initializers import HeNormal
 import random
 import concurrent.futures
-
-
-
 
 def random_parameters(parameters_grid):
     selected_parameters = {}
